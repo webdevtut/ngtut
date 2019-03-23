@@ -16,6 +16,9 @@ html, body, p{
 .bwm-form {
   color: $main-text-color;
 
+button{
+  background-color:  $main-color;
+}
   form {
     margin-bottom: 10px;
   }
@@ -57,5 +60,5 @@ html, body, p{
     margin-top: 50px;
     letter-spacing: 1px;
   }
-  
+
 }
