@@ -9,8 +9,12 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
-      <a class="nav-item nav-link active" routerLink = "/login">Login <span class="sr-only">(current)</span></a>
+      <li *ngIf = "!auth.isAuthenticated()" class="nav-item active">      // isAuthentecated() will give boolean values from Auth service if authenticated items inside li will appear
+        <a class="nav-item nav-link active" routerLink = "/login">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li *ngIf = "!auth.isAuthenticated()" class="nav-item active">      // isAuthentecated() will give boolean values from Auth service if authenticated items inside li will appear
       <a class="nav-item nav-link" routerLink = "/register">Register</a>
+    </li>
     </div>
   </div>
 </nav>
