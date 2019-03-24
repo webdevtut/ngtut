@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'bwm-login',
@@ -16,8 +16,9 @@ export class LoginComponent implements OnInit {
   }
   initForm(){
     this.loginForm = this.fb.group({
-      email:'test@gmail.com',
-      password:'random'
+      email:['', [Validators.required,
+                  Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')]], // Pattern is added from regexemail.com
+      password:['', Validators.required]
     })
   }
 }
