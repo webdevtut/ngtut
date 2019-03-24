@@ -21,7 +21,7 @@ export class AuthService {
     this.decodedToken = jwt.decode(token);
 
     localStorage.setItem('bwm_auth',token);
-    localStorage.setItem('meta', JSON.stringify(this.decodedToken));
+    localStorage.setItem('bwm_meta', JSON.stringify(this.decodedToken));
 
     return token;
     }
@@ -38,8 +38,18 @@ export class AuthService {
          return this.http.post('api/v1/users/auth', userData).map(
            (token : string) => this.saveToken(token));
   }
+  public logout() {
+    localStorage.removeItem('bwm_auth');
+    localStorage.removeItem('bwm_meta');
+
+    this.decodedToken = new DecodedToken();
+  }
 
   public isAuthenticated() : boolean{
       return moment().isBefore(this.getExpiration());  // checks if user is authenticated by using state of decodedTokenn
+  }
+
+  public getUsername(){
+    return this.decodedToken.username;
   }
 }

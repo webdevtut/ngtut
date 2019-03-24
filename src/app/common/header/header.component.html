@@ -9,11 +9,19 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
-      <li *ngIf = "!auth.isAuthenticated()" class="nav-item active">      // isAuthentecated() will give boolean values from Auth service if authenticated items inside li will appear
-        <a class="nav-item nav-link active" routerLink = "/login">Login <span class="sr-only">(current)</span></a>
+      <ng-container *ngIf = "!auth.isAuthenticated()">    <!-- isAuthentecated() will give boolean values from Auth service if authenticated items inside container will appear -->
+        <li  class="nav-item active">
+          <a class="nav-item nav-link active" routerLink = "/login">Login <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+        <a class="nav-item nav-link" routerLink = "/register">Register</a>
       </li>
-      <li *ngIf = "!auth.isAuthenticated()" class="nav-item active">      // isAuthentecated() will give boolean values from Auth service if authenticated items inside li will appear
-      <a class="nav-item nav-link" routerLink = "/register">Register</a>
+    </ng-container>
+    <li *ngIf = "auth.isAuthenticated()" class="nav-item active">
+      <a class="nav-item nav-link" >{{auth.getUsername()}}</a>
+    </li>
+    <li *ngIf = "auth.isAuthenticated()" class="nav-item active">
+      <a class="nav-item nav-link" (click) = "logout()">Logout</a>
     </li>
     </div>
   </div>

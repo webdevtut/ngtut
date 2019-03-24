@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthService} from '../../auth/shared/auth.service';  // Added for hiding or showing login / register buttons in HTML
+import {Router} from '@angular/router';
 
 @Component({
   selector: "bwm-header",
@@ -8,5 +9,11 @@ import {AuthService} from '../../auth/shared/auth.service';  // Added for hiding
 })
 
 export class HeaderComponent {
-  constructor (private auth: AuthService) {}   // In order to use auth service here we have to export it privately in constructor
+  constructor (private auth: AuthService,
+    private router : Router) {}
+
+  logout(){
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
 }
