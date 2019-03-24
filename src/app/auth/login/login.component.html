@@ -10,6 +10,16 @@
                    class="form-control"
                    id="email"
                    formControlName = "email">
+                   <div *ngIf="isInvalidForm('email')"
+                    class="alert alert-danger">
+
+                  <div *ngIf="loginForm.controls['email'].errors.required">
+                    Email is required.
+                  </div>
+                  <div *ngIf="loginForm.controls['email'].errors.pattern">
+                    Email must be Valid Format.
+                  </div>
+                </div>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
