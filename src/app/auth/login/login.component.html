@@ -13,7 +13,7 @@
                    <div *ngIf="isInvalidForm('email')"
                     class="alert alert-danger">
 
-                  <div *ngIf="loginForm.controls['email'].errors.required">
+                  <div *ngIf="isRequired('email')">
                     Email is required.
                   </div>
                   <div *ngIf="loginForm.controls['email'].errors.pattern">
