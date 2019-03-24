@@ -13,7 +13,7 @@ constructor(private http:HttpClient) {}
   }
   public login(userData: any): Observable <any>{
          return this.http.post('api/v1/users/auth', userData).map(
-           (token) => this.saveToken(token));
+           (token : string) => this.saveToken(token));
   }
   private saveToken(token: string): string {
     localStorage.setItem('bwm_auth',token);
