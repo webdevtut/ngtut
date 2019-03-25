@@ -4,6 +4,7 @@ import { Routes,RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'
 import { NgPipesModule } from 'ngx-pipes';
 import { MapModule } from '../common/map/map.module';
+import { Daterangepicker } from 'ng2-daterangepicker'
 
 
 import { RentalComponent } from './rental.component';
@@ -33,6 +34,8 @@ const routes: Routes = [
      RentalComponent,
      RentalDetailComponent,
      UppercasePipe
+     UppercasePipe,
+     RentalDetailBookingComponent
    ],
    imports:[
      CommonModule,
@@ -40,6 +43,8 @@ const routes: Routes = [
      HttpClientModule,
      NgPipesModule,
      MapModule
+     MapModule,
+     Daterangepicker
    ],
    providers:[
      RentalService
