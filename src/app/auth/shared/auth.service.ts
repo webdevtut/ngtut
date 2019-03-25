@@ -49,6 +49,10 @@ export class AuthService {
       return moment().isBefore(this.getExpiration());  // checks if user is authenticated by using state of decodedTokenn
   }
 
+  public getAuthToken(): string{
+    return localStorage.getItem('bwm_auth');
+  }
+
   public getUsername(){
     return this.decodedToken.username;
   }
