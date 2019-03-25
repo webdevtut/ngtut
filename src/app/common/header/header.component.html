@@ -17,12 +17,14 @@
         <a class="nav-item nav-link" routerLink = "/register">Register</a>
       </li>
     </ng-container>
-    <li *ngIf = "auth.isAuthenticated()" class="nav-item active">
+    <ng-container *ngIf = "auth.isAuthenticated()">
+    <li  class="nav-item active">
       <a class="nav-item nav-link" >{{auth.getUsername()}}</a>
     </li>
-    <li *ngIf = "auth.isAuthenticated()" class="nav-item active">
+    <li  class="nav-item active clickable">
       <a class="nav-item nav-link" (click) = "logout()">Logout</a>
     </li>
+  </ng-container>
     </div>
   </div>
 </nav>

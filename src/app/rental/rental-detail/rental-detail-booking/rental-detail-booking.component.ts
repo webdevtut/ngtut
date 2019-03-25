@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Rental } from '../../shared/rental.model';
-
 
 @Component({
   selector: 'bwm-rental-detail-booking',
@@ -8,29 +6,23 @@ import { Rental } from '../../shared/rental.model';
   styleUrls: ['./rental-detail-booking.component.scss']
 })
 
-
 export class RentalDetailBookingComponent implements OnInit {
 
-  @Input() rental: Rental;
+  @Input() price: number;
+
+  daterange: any = {};
 
   constructor() { }
 
   ngOnInit() {
   }
-
-  public daterange: any = {};
-
-    // see original project for full list of options
-    // can also be setup using the config service to apply to multiple pickers
-    public options: any = {
+        options: any = {
         locale: { format: 'YYYY-MM-DD' },
         alwaysShowCalendars: false,
         opens: 'left'
     };
 
-    public selectedDate(value: any, datepicker?: any) {
-        // this is the date the iser selected
-        debugger;
+     selectedDate(value: any, datepicker?: any) {
         console.log(value);
 
         // any object can be passed to the selected event and it will be passed back here

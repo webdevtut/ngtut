@@ -15,6 +15,7 @@ import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 import { UppercasePipe } from '../common/pipes/uppercase.pipe';
 
 import { AuthGuard } from '../auth/shared/auth.guard';
+import { RentalDetailBookingComponent } from './rental-detail/rental-detail-booking/rental-detail-booking.component';
 
 
 const routes: Routes = [
@@ -33,7 +34,6 @@ const routes: Routes = [
      RentalListItemComponent,
      RentalComponent,
      RentalDetailComponent,
-     UppercasePipe
      UppercasePipe,
      RentalDetailBookingComponent
    ],
@@ -42,7 +42,6 @@ const routes: Routes = [
      RouterModule.forChild(routes),
      HttpClientModule,
      NgPipesModule,
-     MapModule
      MapModule,
      Daterangepicker
    ],
