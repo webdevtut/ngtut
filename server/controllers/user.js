@@ -1,5 +1,6 @@
 const User = require('../models/user')
-const MongooseHelpers = require('../helpers/mongoose')
+const { normalizeErrors} = require('../helpers/mongoose')
+// const MongooseHelpers = require('../helpers/mongoose')
 const jwt = require('jsonwebtoken')
 const config = require('../config/dev')
 
@@ -11,7 +12,7 @@ exports.auth = function(req,res){
   }
   User.findOne({email}, function(err,user){
     if (err) {
-
+      return  res.status(422).send({errors : normalizeErrors(err.errors)});
     }
     if (!user) {
       return res.status(422).send({errors:[{title:'Invalid user!!!', detail : 'User Dont Exist'}]});
@@ -43,7 +44,7 @@ if (password !== passwordConfirmation) {
 
 User.findOne({email}, function(err,existingUser){
   if (err) {
-    return  res.status(422).send({errors : MongooseHelpers.normalizederrors(err.errors)});
+    return  res.status(422).send({errors : normalizeErrors(err.errors)});
   }
   if (existingUser) {
     return res.status(422).send({errors:[{title:'Invalid Email', detail : 'User with same EmailId Already Exist'}]});
@@ -56,7 +57,7 @@ User.findOne({email}, function(err,existingUser){
   });
   user.save(function(err){
     if (err) {
-    return  res.status(422).send({errors : MongooseHelpers.normalizederrors(err.errors)});
+    return  res.status(422).send({errors : normalizeErrors(err.errors)});
     }
     return res.json({'registered': true});
   })
@@ -69,7 +70,7 @@ exports.authMiddleware = function(req, res, next){
     const user = parseToken(token);
     User.findById(user.userId, function(err,user){
       if (err) {
-        return  res.status(422).send({errors : MongooseHelpers.normalizederrors(err.errors)});
+        return  res.status(422).send({errors : normalizeErrors(err.errors)});
       }
       if (user) {
         res.locals.user = user;
