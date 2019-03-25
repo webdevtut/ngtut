@@ -9,6 +9,7 @@ import { HeaderComponent } from './common/header/header.component';
 import { RentalComponent } from './rental/rental.component';
 
 import { RentalModule } from './rental/rental.module';
+import { AuthModule } from './auth/auth.module';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
-    RentalModule
+    RentalModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
