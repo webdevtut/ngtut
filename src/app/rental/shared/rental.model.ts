@@ -1,4 +1,4 @@
-import { Booking } from '../../booking/shared/booking.model'
+import { Booking } from '../../booking/shared/booking.model';
 
 export interface Rental {
   _id: string;
