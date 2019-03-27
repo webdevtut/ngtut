@@ -12,10 +12,26 @@
             id="guests"
             aria-describedby="emailHelp" >
   </div>
-  <button (click) = "reserveRental()" class="btn btn-danger btn-confirm btn-block">Reserve place now</button>
+  <button (click) = "openConfirmModel(content)" class="btn btn-danger btn-confirm btn-block">Reserve place now</button>
   <hr>
   <p class="booking-note-title">People are interested into this house</p>
   <p class="booking-note-text">
     More than 500 people checked this rental in last month.
   </p>
 </div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Hello, World!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>
