@@ -14,6 +14,8 @@ export class RentalDetailBookingComponent implements OnInit {
   @Input() price: number;
   @Input() bookings: Booking[];
 
+  newBooking: Booking;
+
   daterange: any = {};
   bookedOutDates: any[] = [];
 
@@ -26,17 +28,17 @@ export class RentalDetailBookingComponent implements OnInit {
   constructor(private helper : HelperService) { }
 
     ngOnInit() {
+      this.newBooking = new Booking();
       this.getBookedOutDates();
     }
     private checkForInvalidDates(date){
-      debugger;
-      return this.bookedOutDates.includes(date.format(Booking.DATE_FORMAT)) || date.diff(moment(), 'days') < 0;
+      return this.bookedOutDates.includes(this.helper.formatBookingDate(date)) || date.diff(moment(), 'days') < 0;
     }
- 
+
     private getBookedOutDates(){
       if (this.bookings && this.bookings.length >0){
         this.bookings.forEach((booking: Booking) =>{
-            const dateRange = this.helper.getRangeOfDates(booking.startAt,booking.endAt);
+            const dateRange = this.helper.getBookingRangeOfDates(booking.startAt,booking.endAt);
             this.bookedOutDates.push(...dateRange);
             debugger;
         });
@@ -46,9 +48,13 @@ export class RentalDetailBookingComponent implements OnInit {
      selectedDate(value: any, datepicker?: any) {
         console.log(value);
 
-        // any object can be passed to the selected event and it will be passed back here
-        datepicker.start = value.start;
-        datepicker.end = value.end;
+
+        this.newBooking.startAt = this.helper.formatBookingDate(value.start);
+        this.newBooking.endAt = this.helper.formatBookingDate(value.end);
+        this.newBooking.days = value.end.diff(value.start, 'days');
+
+        console.log(this.newBooking);
+
 
         // or manupulat your own internal property
         this.daterange.start = value.start;
