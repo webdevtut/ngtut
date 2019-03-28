@@ -1,18 +1,25 @@
 <div class="booking">
   <h3 class="booking-price">${{rental.dailyRate}} <span class="booking-per-night">per night</span></h3>
   <hr>
+  <form #bookingForm = "ngForm">
+
   <label>Dates</label>
     <input type="text" class="form-control daterangepicker-input" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)"
      />
   <div class="form-group">
     <label for="guests">Guests</label>
     <input  [(ngModel)] = "newBooking.guests"
+            name = "guests"
             type="number"
             class="form-control"
             id="guests"
-            aria-describedby="emailHelp" >
+            aria-describedby="emailHelp"
+            required>
   </div>
-  <button (click) = "openConfirmModel(content)" class="btn btn-danger btn-confirm btn-block">Reserve place now</button>
+  <button (click) = "openConfirmModel(content)"
+          [disabled] = "!bookingForm.form.valid || !newBooking.startAt || !newBooking.startAt"
+          class="btn btn-danger btn-confirm btn-block">Reserve place now</button>
+</form>
   <hr>
   <p class="booking-note-title">People are interested into this house</p>
   <p class="booking-note-text">
@@ -23,15 +30,20 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+    <h4 class="modal-title" id="modal-basic-title">Confirm Booking <p>{{newBooking.startAt}} to {{newBooking.endAt}}</p></h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p>Hello, World!</p>
+    <em>{{newBooking.days}}</em> nights /
+    <em>{{rental.dailyRate}}</em> per night
+    <p>Guests: <em>{{newBooking.guests}}</em></p>
+    <p>Price: <em>{{newBooking.totalPrice}}</em></p>
+    <p>Do You Confirm booking for selected Dates?</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+    <button type="button" class="btn-bwm" (click)="createBooking()">Confirm</button>
+    <button type="button" class="btn-bwm" (click)="c('Save click')">Close</button>
   </div>
 </ng-template>
