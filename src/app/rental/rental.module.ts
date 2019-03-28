@@ -16,6 +16,7 @@ import { RentalDetailBookingComponent } from './rental-detail/rental-detail-book
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 
 import { RentalService } from './shared/rental.service';
+import { BookingService } from '../booking/shared/booking.service';
 import { HelperService } from '../common/service/helper.service';
 import { UppercasePipe } from '../common/pipes/uppercase.pipe';
 
@@ -52,7 +53,8 @@ const routes: Routes = [
    ],
    providers:[
      RentalService,
-     HelperService
+     HelperService,
+     BookingService
    ]
  })
 export class RentalModule{}
