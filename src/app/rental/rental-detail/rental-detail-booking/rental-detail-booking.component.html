@@ -16,12 +16,12 @@
             aria-describedby="emailHelp"
             required>
   </div>
-  <button (click) = "openConfirmModel(content)"
+  <button (click) = "openConfirmModal(content)"
           [disabled] = "!bookingForm.form.valid || !newBooking.startAt || !newBooking.startAt"
           class="btn btn-danger btn-confirm btn-block">Reserve place now</button>
 </form>
   <hr>
-  <p class="booking-note-title">People are interested into this house</p>
+  <p  class="booking-note-title">People are interested into this house</p>
   <p class="booking-note-text">
     More than 500 people checked this rental in last month.
   </p>

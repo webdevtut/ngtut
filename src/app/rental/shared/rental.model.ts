@@ -12,5 +12,5 @@ export interface Rental {
   dailyRate: number;
   shared: boolean;
   createdAt: string;
-  booking: Booking;
+  bookings: Booking;
   }

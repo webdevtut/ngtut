@@ -1,13 +1,16 @@
-import { Component, OnInit, Input, ViewContainerRef} from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef, ViewChild,ViewEncapsulation} from '@angular/core';
 import { Booking } from '../../../booking/shared/booking.model';
 import { Rental } from '../../shared/rental.model';
 import { HelperService } from '../../../common/service/helper.service';
 import { BookingService } from '../../../booking/shared/booking.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { DaterangePickerComponent } from 'ng2-daterangepicker';
+
 import * as moment from 'moment';
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'bwm-rental-detail-booking',
   templateUrl: './rental-detail-booking.component.html',
   styleUrls: ['./rental-detail-booking.component.scss']
@@ -16,9 +19,13 @@ import * as moment from 'moment';
 export class RentalDetailBookingComponent implements OnInit {
 
   @Input() rental: Rental;
+  @ViewChild(DaterangePickerComponent)
+    private picker: DaterangePickerComponent;
+
 
   newBooking: Booking;
   modalRef : any;
+
 
   daterange: any = {};
   bookedOutDates: any[] = [];
@@ -28,6 +35,7 @@ export class RentalDetailBookingComponent implements OnInit {
     locale: { format: Booking.DATE_FORMAT },
     alwaysShowCalendars: false,
     opens: 'left',
+    autoUpdateInput: false,
     isInvalidDate: this.checkForInvalidDates.bind(this)
   };
   constructor(private helper : HelperService,
@@ -48,12 +56,11 @@ export class RentalDetailBookingComponent implements OnInit {
     }
 
     private getBookedOutDates(){
-      const bookings: Booking[] = this.rental.bookings;
+      const bookings : Booking[] = this.rental.bookings;
       if (bookings && bookings.length >0){
         bookings.forEach((booking: Booking) =>{
             const dateRange = this.helper.getBookingRangeOfDates(booking.startAt,booking.endAt);
             this.bookedOutDates.push(...dateRange);
-            debugger;
         });
       }
     }
@@ -64,7 +71,13 @@ export class RentalDetailBookingComponent implements OnInit {
 
     }
 
-    openConfirmModel(content){
+    private resetDatePicker(){
+      this.picker.datePicker.setStartDate(moment());
+      this.picker.datePicker.setEndDate(moment());
+      this.picker.datePicker.element.val('');
+    }
+
+    openConfirmModal(content){
       this.errors = [];
       this.modalRef = this.modalService.open(content);
     }
@@ -75,6 +88,7 @@ export class RentalDetailBookingComponent implements OnInit {
           this.addNewBookedOutDates(bookingData);
           this.newBooking = new Booking();
           this.modalRef.close();
+          this.resetDatePicker();
           this.toastr.success('Booking Successfully Created. Check your Booking detail in Managed section', 'Success!');
 
         },
@@ -84,6 +98,7 @@ export class RentalDetailBookingComponent implements OnInit {
       )
     }
      selectedDate(value: any, datepicker?: any) {
+       this.options.autoUpdateInput = true;
         this.newBooking.startAt = this.helper.formatBookingDate(value.start);
         this.newBooking.endAt = this.helper.formatBookingDate(value.end);
         this.newBooking.days = value.end.diff(value.start, 'days');
