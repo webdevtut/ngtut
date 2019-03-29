@@ -21,6 +21,7 @@ export class RentalDetailBookingComponent implements OnInit {
 
   daterange: any = {};
   bookedOutDates: any[] = [];
+  errors: any[] = [];
 
   options: any = {
     locale: { format: Booking.DATE_FORMAT },
@@ -51,18 +52,26 @@ export class RentalDetailBookingComponent implements OnInit {
       }
     }
 
+    private addNewBookedOutDates(bookingData: any){
+      const dateRange = this.helper.getBookingRangeOfDates(bookingData.startAt,bookingData.endAt);
+      this.bookedOutDates.push(...dateRange); /// three dots added to format daterange we are getting
+
+    }
+
     openConfirmModel(content){
+      this.errors = [];
       this.modalRef = this.modalService.open(content);
     }
     createBooking(){
       this.newBooking.rental = this.rental;
       this.bookingService.createBooking(this.newBooking).subscribe(
         (bookingData) => {
+          this.addNewBookedOutDates(bookingData);
           this.newBooking = new Booking();
           this.modalRef.close();
         },
-        () => {
-
+        (errorResponse) => {
+          this.errors = errorResponse.error.errors;
         }
       )
     }
