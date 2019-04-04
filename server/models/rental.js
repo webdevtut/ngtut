@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 
 const rentalSchema = new Schema({
   title: { type: String, required: true, max:[128, 'Too long, maximum 128 charachers allowed']},
-  city: { type: String, required: true, lowecare:true},
+  city: { type: String, required: true, lowercase:true},
   street: { type: String, required: true ,min:[4, 'Too short, minimum 4 charachers needed']},
-  category: { type: String, required: true,lowecare:true},
+  category: { type: String, required: true,lowercase:true},
   image: { type: String, required: true},
   bedrooms: Number,
   shared: Boolean,
