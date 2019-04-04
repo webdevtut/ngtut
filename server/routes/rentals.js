@@ -26,26 +26,21 @@ router.get('/:id', function(req,res){
 
 router.get('', function(req,res){
   const city = req.query.city;
-  if(city){
-    Rental.find({city: city.toLowerCase()})
+  const query = city ? {city: city.toLowerCase()} : {};
+
+
+    Rental.find(query)
     .select('-bookings')
-    .exec(function(err,  filteredRentals){
+    .exec(function(err, foundRentals){
       if(err){
         return  res.status(422).send({errors : normalizeErrors(err.errors)});
       }
-      if (filteredRentals.length === 0) {
+      if (city && foundRentals.length === 0) {
         res.status(422).send({errors:[{title:'No Rentals Found', detail : `There are no Rentals for specified city  ${city}`}]}); // string interpolation done
       }else{
-        return res.json(filteredRentals);
+        return res.json(foundRentals);
       }
-    })
-  }else{
-    Rental.find({})
-    .select('-bookings')
-    .exec(function(err, foundRentals){
-      return res.json(foundRentals);
     });
-  }
 });
 
 
