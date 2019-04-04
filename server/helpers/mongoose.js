@@ -1,10 +1,10 @@
 module.exports = {
-  normalizederrors : function (errors) {
-    let normalizederrors = [];
+  normalizeErrors : function (errors) {
+    let normalizeErrors = [];
 
     for (let property in errors) {
       if (errors.hasOwnProperty(property)) {
-        normalizederrors.push({title:property, detail:errors[property].message })
+        normalizeErrors.push({title:property, detail:errors[property].message })
      }
     }
   }

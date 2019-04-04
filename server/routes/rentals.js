@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Rental = require('../models/rental');
+const { normalizeErrors} = require('../helpers/mongoose')
 
 
 const UserCtrl = require('../controllers/user');
@@ -26,7 +27,18 @@ router.get('/:id', function(req,res){
 router.get('', function(req,res){
   const city = req.query.city;
   if(city){
-return res.json({city});
+    Rental.find({city: city.toLowerCase()})
+    .select('-bookings')
+    .exec(function(err,  filteredRentals){
+      if(err){
+        return  res.status(422).send({errors : normalizeErrors(err.errors)});
+      }
+      if (filteredRentals.length === 0) {
+        res.status(422).send({errors:[{title:'No Rentals Found', detail : `There are no Rentals for specified city  ${city}`}]}); // string interpolation done
+      }else{
+        return res.json(filteredRentals);
+      }
+    })
   }else{
     Rental.find({})
     .select('-bookings')
