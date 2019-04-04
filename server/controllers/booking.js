@@ -2,7 +2,7 @@
 const Booking = require("../models/booking");
 const Rental = require("../models/rental");
 const User = require("../models/user");
-const { normalizeErrors} = require('../helpers/mongoose')
+const { normalizederrors} = require('../helpers/mongoose')
 const moment = require('moment');
 
 
@@ -16,8 +16,10 @@ exports.createBooking = function(req,res) {
             .populate('bookings')
             .populate('user')
             .exec(function(err, foundRental){
+              // console.log(foundRental._id);
+              // console.log(user._id);
         if(err){
-          return  res.status(422).send({errors : normalizeErrors(err.errors)});
+          return  res.status(422).send({errors : "Kindly Provide Correct Data /  submit Different input"});
         }
         if (foundRental.user.id === user.id) {
           return res.status(422).send({errors:[{title:'Invalid user!!!', detail : 'Cannot create booking for your Rental!'}]});
@@ -29,7 +31,7 @@ exports.createBooking = function(req,res) {
 
             booking.save(function(err){
               if(err){
-                return  res.status(422).send({errors : normalizeErrors(err.errors)});
+                return  res.status(422).send({errors : "Kindly Provide Correct Data /  submit Different input"});
               }
               foundRental.save();
               User.update({_id: user.id},{$push: {bookings: booking}}, function(){});  // This will select the user with id and push the booking
