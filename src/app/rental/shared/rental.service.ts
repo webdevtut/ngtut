@@ -18,4 +18,7 @@ public getRentalById(rentalId: string): Observable<any>{
 public getRentals(): Observable<any>{
   return this.http.get('/api/v1/rentals');
 }
+public getRentalsByCity(city:string): Observable<any>{
+  return this.http.get(`/api/v1/rentals?city=${city}`);
+}
 }

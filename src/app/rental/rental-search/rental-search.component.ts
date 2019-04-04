@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RentalService } from '../shared/rental.service';
+import { Rental } from '../shared/rental.model';
 
 @Component({
   selector: 'bwm-rental-search',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RentalSearchComponent implements OnInit {
 
-  constructor() { }
+city : string;
+rentals : Rental[] = [];
+  constructor(private route: ActivatedRoute,
+              private rentalService: RentalService) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.city = params['city'];
+      this.getRentals();
+    })
   }
 
+  getRentals(){
+    this.rentalService.getRentalsByCity(this.city).subscribe(
+      (rentals: Rental[])=> {
+        this.rentals = rentals;
+      },
+      ()=>{
+
+      })
+  }
 }
