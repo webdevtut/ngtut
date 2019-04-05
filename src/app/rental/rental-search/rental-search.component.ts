@@ -26,6 +26,8 @@ errors: any[] = [];
   }
 
   getRentals(){
+    this.errors = [];
+    this.rentals = [];
     this.rentalService.getRentalsByCity(this.city).subscribe(
       (rentals: Rental[])=> {
         this.rentals = rentals;
