@@ -23,6 +23,7 @@ import { HelperService } from '../common/service/helper.service';
 import { UppercasePipe } from '../common/pipes/uppercase.pipe';
 
 import { AuthGuard } from '../auth/shared/auth.guard';
+import { RentalCreateComponent } from './rental-create/rental-create.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   component: RentalComponent,
   children: [
     { path: '', component: RentalListComponent },
+    { path: 'new', component: RentalCreateComponent },
     { path: ':rentalId', component: RentalDetailComponent, canActivate: [AuthGuard]},
     { path: ':city/homes', component: RentalSearchComponent}
   ]
@@ -44,7 +46,8 @@ const routes: Routes = [
      RentalDetailComponent,
      UppercasePipe,
      RentalDetailBookingComponent,
-     RentalSearchComponent
+     RentalSearchComponent,
+     RentalCreateComponent
    ],
    imports:[
      CommonModule,

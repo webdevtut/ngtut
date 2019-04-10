@@ -1,6 +1,6 @@
 import { Booking } from '../../booking/shared/booking.model';
 
-export interface Rental {
+export class Rental {
   _id: string;
   title: string;
   city: string;
