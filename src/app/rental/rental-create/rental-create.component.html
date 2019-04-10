@@ -10,7 +10,8 @@
                    class="form-control"
                    id="title"
                    name = "title"
-                   [(ngModel)]="newRental.title">
+                   [(ngModel)]="newRental.title"
+                   required>
           </div>
 
           <div class="form-group">
@@ -19,7 +20,8 @@
                    class="form-control"
                    id="city"
                    name = "city"
-                   [(ngModel)]="newRental.city">
+                   [(ngModel)]="newRental.city"
+                   required>
           </div>
 
           <div class="form-group">
@@ -28,7 +30,8 @@
                    class="form-control"
                    id="street"
                    name = "street"
-                   [(ngModel)]="newRental.street">
+                   [(ngModel)]="newRental.street"
+                   required>
           </div>
 
           <div class="form-group">
@@ -37,7 +40,8 @@
             <select class="form-control"
                     id="city"
                     name = "city"
-                    [(ngModel)]="newRental.category">
+                    [(ngModel)]="newRental.category"
+                    required>
               <option *ngFor= "let category of rentalCategories"> {{category}} </option>
             </select>
           </div>
@@ -58,7 +62,8 @@
                    class="form-control"
                    id="bedrooms"
                    name = "bedrooms"
-                   [(ngModel)]="newRental.bedrooms">
+                   [(ngModel)]="newRental.bedrooms"
+                   required>
           </div>
 
           <div class="form-group">
@@ -68,7 +73,8 @@
                       class="form-control"
                       id="description"
                       name = "description"
-                      [(ngModel)]="newRental.description ">
+                      [(ngModel)]="newRental.description "
+                      required>
             </textarea>
           </div>
 
@@ -83,7 +89,8 @@
                      class="form-control"
                      id="dailyRate"
                      name = "dailyRate"
-                     [(ngModel)]="newRental.dailyRate">
+                     [(ngModel)]="newRental.dailyRate"
+                     required>
             </div>
           </div>
 
@@ -93,10 +100,19 @@
                    class="form-control"
                    id="shared"
                    name = "shared"
-                   [(ngModel)]="newRental.shared">
+                   [(ngModel)]="newRental.shared"
+                   required>
           </div>
-          <button (click)="createRental()" type="button" class="btn btn-bwm">Submit</button>
+          <button (click)="createRental()"
+                  [disabled]="!rentalForm.form.valid"
+                  type="button"
+                  class="btn btn-bwm">Submit</button>
         </form>
+        <div *ngIf="errors.length > 0" class="alert alert-danger">
+          <p *ngFor="let error of errors">
+          {{error.detail}}
+        </p>
+        </div>
       </div>
       <div class="col-md-6 ml-auto">
         <div class="image-container">
