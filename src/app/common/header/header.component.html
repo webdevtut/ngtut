@@ -27,6 +27,14 @@
       </li>
     </ng-container>
     <ng-container *ngIf = "auth.isAuthenticated()">
+        <div class="nav-item dropdown clickable">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Owner Section
+          </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink = "/rentals/new" >Create Rental</a>
+        </div>
+  </div>
     <li  class="nav-item active">
       <a class="nav-item nav-link" >{{auth.getUsername()}}</a>
     </li>
