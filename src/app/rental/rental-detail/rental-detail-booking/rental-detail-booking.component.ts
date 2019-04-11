@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewContainerRef, ViewChild,ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import { Booking } from '../../../booking/shared/booking.model';
 import { Rental } from '../../shared/rental.model';
 import { HelperService } from '../../../common/service/helper.service';
@@ -11,6 +11,7 @@ import * as moment from 'moment';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
+// tslint:disable-next-line: component-selector
   selector: 'bwm-rental-detail-booking',
   templateUrl: './rental-detail-booking.component.html',
   styleUrls: ['./rental-detail-booking.component.scss']
@@ -24,12 +25,13 @@ export class RentalDetailBookingComponent implements OnInit {
 
 
   newBooking: Booking;
-  modalRef : any;
+  modalRef: any;
 
 
   daterange: any = {};
   bookedOutDates: any[] = [];
   errors: any[] = [];
+
 
   options: any = {
     locale: { format: Booking.DATE_FORMAT },
@@ -38,10 +40,10 @@ export class RentalDetailBookingComponent implements OnInit {
     autoUpdateInput: false,
     isInvalidDate: this.checkForInvalidDates.bind(this)
   };
-  constructor(private helper : HelperService,
+  constructor(private helper: HelperService,
               private modalService: NgbModal,
-              private bookingService : BookingService,
-              private toastr : ToastsManager,
+              private bookingService: BookingService,
+              private toastr: ToastsManager,
               vcr: ViewContainerRef
             ) {
             this.toastr.setRootViewContainerRef(vcr);
@@ -51,37 +53,37 @@ export class RentalDetailBookingComponent implements OnInit {
       this.newBooking = new Booking();
       this.getBookedOutDates();
     }
-    private checkForInvalidDates(date){
+    private checkForInvalidDates(date) {
       return this.bookedOutDates.includes(this.helper.formatBookingDate(date)) || date.diff(moment(), 'days') < 0;
     }
 
-    private getBookedOutDates(){
-      const bookings : Booking[] = this.rental.bookings;
-      if (bookings && bookings.length >0){
-        bookings.forEach((booking: Booking) =>{
-            const dateRange = this.helper.getBookingRangeOfDates(booking.startAt,booking.endAt);
+    private getBookedOutDates() {
+      const bookings: Booking[] = this.rental.bookings;
+      if (bookings && bookings.length > 0) {
+        bookings.forEach((booking: Booking) => {
+            const dateRange = this.helper.getBookingRangeOfDates(booking.startAt, booking.endAt);
             this.bookedOutDates.push(...dateRange);
         });
       }
     }
 
-    private addNewBookedOutDates(bookingData: any){
-      const dateRange = this.helper.getBookingRangeOfDates(bookingData.startAt,bookingData.endAt);
+    private addNewBookedOutDates(bookingData: any) {
+      const dateRange = this.helper.getBookingRangeOfDates(bookingData.startAt, bookingData.endAt);
       this.bookedOutDates.push(...dateRange); /// three dots added to format daterange we are getting
 
     }
 
-    private resetDatePicker(){
+    private resetDatePicker() {
       this.picker.datePicker.setStartDate(moment());
       this.picker.datePicker.setEndDate(moment());
       this.picker.datePicker.element.val('');
     }
 
-    openConfirmModal(content){
+    openConfirmModal(content) {
       this.errors = [];
       this.modalRef = this.modalService.open(content);
     }
-    createBooking(){
+    createBooking() {
       this.newBooking.rental = this.rental;
       this.bookingService.createBooking(this.newBooking).subscribe(
         (bookingData) => {
@@ -95,7 +97,7 @@ export class RentalDetailBookingComponent implements OnInit {
         (errorResponse) => {
           this.errors = errorResponse.error.errors;
         }
-      )
+      );
     }
      selectedDate(value: any, datepicker?: any) {
        this.options.autoUpdateInput = true;
