@@ -12,6 +12,23 @@ router.get('/secret', UserCtrl.authMiddleware, function (req,res) {
   res.json({"secret": 'true'});
 })
 
+router.get('/manage',  UserCtrl.authMiddleware, function(req, res) {
+  const user = res.locals.user;
+
+  Rental
+    .where({user})
+    .populate('bookings')
+    .exec(function(err, foundRentals) {
+
+    if (err) {
+      res.status(422).send({errors:[{title:'rental error', detail : 'Could not find rental'}]});
+    }
+
+    return res.json(foundRentals);
+  });
+});
+
+
 router.get('/:id', function(req,res){
   const rentalId = req.params.id;
   Rental.findById(rentalId)
@@ -24,6 +41,8 @@ router.get('/:id', function(req,res){
           res.json(foundRental);
   });
 });
+
+
 
 router.delete('/:id',UserCtrl.authMiddleware, function(req,res){
   const user  = res.locals.user;
@@ -52,6 +71,7 @@ router.delete('/:id',UserCtrl.authMiddleware, function(req,res){
     });
   });
 });
+
 
 router.post('',UserCtrl.authMiddleware,function(req,res){
  const { title, city, street, category, image, shared, bedroomes, description, dailyRate} = req.body;
