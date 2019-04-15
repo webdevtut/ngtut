@@ -12,6 +12,23 @@ router.get('/secret', UserCtrl.authMiddleware, function (req,res) {
   res.json({"secret": 'true'});
 })
 
+router.get('/manage',  UserCtrl.authMiddleware, function(req, res) {
+  const user = res.locals.user;
+
+  Rental
+    .where({user})
+    .populate('bookings')
+    .exec(function(err, foundRentals) {
+
+    if (err) {
+      res.status(422).send({errors:[{title:'rental error', detail : 'Could not find rental'}]});
+    }
+
+    return res.json(foundRentals);
+  });
+});
+
+
 router.get('/:id', function(req,res){
   const rentalId = req.params.id;
   Rental.findById(rentalId)
@@ -25,6 +42,37 @@ router.get('/:id', function(req,res){
   });
 });
 
+
+
+router.delete('/:id',UserCtrl.authMiddleware, function(req,res){
+  const user  = res.locals.user;
+  Rental.findById(req.params.id)
+  .populate('user', '_id')
+  .populate({
+    path:'bookings',
+    select:"startAt",
+    match:{ startAt: { $gt: new Date()}}   // Logic for Selecting only future Bookings on rental
+  })
+  .exec(function(err, foundRental){
+    if(err){
+      return  res.status(422).send({errors : "Kindly Provide Correct Data /  submit Different input"});
+    }
+    if(user.id !== foundRental.user.id){
+      res.status(422).send({errors:[{title:'InValid User!', detail : 'You are not owner of this Rental!'}]});
+    }
+    if(foundRental.bookings.length > 0){
+      res.status(422).send({errors:[{title:'There are Active Bookings on this Rental!', detail : 'Cannot Delete rental with active bookings'}]});
+    }
+    foundRental.remove(function(err){
+      if(err){
+        return  res.status(422).send({errors : "Kindly Provide Correct Data /  submit Different input"});
+      }
+      return res.json({'status':'deleted'});
+    });
+  });
+});
+
+
 router.post('',UserCtrl.authMiddleware,function(req,res){
  const { title, city, street, category, image, shared, bedroomes, description, dailyRate} = req.body;
  const user = res.locals.user;
@@ -33,7 +81,6 @@ router.post('',UserCtrl.authMiddleware,function(req,res){
  Rental.create(rental, function(err,newRental){
    if(err){
      return  res.status(422).send({errors : "Kindly Provide Correct Data /  submit Different input"});
-
    }
    User.update({_id: user.id}, {$push:{rentals:newRental}}, function(){});
    return res.json(newRental);
