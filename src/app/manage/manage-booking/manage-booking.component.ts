@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BookingService } from '../../booking/shared/booking.service';
+import { Booking } from '../../booking/shared/booking.model';
 
 @Component({
   selector: 'bwm-manage-booking',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageBookingComponent implements OnInit {
 
-  constructor() { }
+  bookings: Booking[] = [];
+
+
+  constructor(private bookingService: BookingService) { }
 
   ngOnInit() {
+    this.bookingService.getUserBokings().subscribe(
+      (bookings: Booking[])=> {
+        this.bookings = bookings;
+      },
+      ()=>{
+
+      }
+    )
   }
 
 }

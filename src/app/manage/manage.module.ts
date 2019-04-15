@@ -7,6 +7,8 @@ import {ManageBookingComponent} from './manage-booking/manage-booking.component'
 import {ManageRentalComponent} from './manage-rental/manage-rental.component';
 
 
+import{ RentalService } from '../rental/shared/rental.service';
+import{ BookingService } from '../booking/shared/booking.service';
 import { AuthGuard } from '../auth/shared/auth.guard';
 
 
@@ -33,6 +35,8 @@ const routes: Routes = [
     CommonModule
   ],
   providers: [
+    RentalService,
+    BookingService
   ],
 })
 export class ManageModule { }

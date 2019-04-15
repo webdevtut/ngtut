@@ -13,6 +13,8 @@ public createBooking(booking: Booking): Observable<any>{
 
 }
 
-
+public getUserBokings(): Observable<any>{
+  return this.http.get('/api/v1/bookings/manage');
+}
 
 }
