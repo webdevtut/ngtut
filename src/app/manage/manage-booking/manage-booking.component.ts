@@ -9,7 +9,7 @@ import { Booking } from '../../booking/shared/booking.model';
 })
 export class ManageBookingComponent implements OnInit {
 
-  bookings: Booking[] = [];
+  bookings: Booking[];
 
 
   constructor(private bookingService: BookingService) { }
