@@ -23,6 +23,20 @@ html, body, p{
   cursor: pointer;
 }
 
+  .btn-ghost{
+    background-color: transparent !important;
+    color: $main-color !important;
+    border: 1px solid $main-color !important;
+    font-size: 12px !important;
+    &:hover, &:focus{
+      background-color: transparent !important;
+      color: $main-color !important;
+      border: 1px solid $main-color !important;
+
+    }
+  }
+
+
 .btn-bwm {
   background-color: $main-color;
   border-color: $main-color;
@@ -32,7 +46,7 @@ html, body, p{
   border-bottom-right-radius: 0.25rem !important;
   border-bottom-left-radius: 0.25rem !important;
   padding: 5px 20px;
-  font-size: 20px !important;
+  font-size: 20px;
 
   &:hover, &:focus, &:active {
     border-color: $main-color !important;
