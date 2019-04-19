@@ -10,6 +10,7 @@ import { Rental } from '../../rental/shared/rental.model';
 export class ManageRentalComponent implements OnInit {
 
   rentals: Rental[];
+  rentalDeleteIndex: number;
 
   constructor(private rentalService: RentalService) { }
 
