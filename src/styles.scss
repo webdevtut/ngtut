@@ -32,7 +32,7 @@ html, body, p{
   border-bottom-right-radius: 0.25rem !important;
   border-bottom-left-radius: 0.25rem !important;
   padding: 5px 20px;
-  font-size: 20px !important;
+  font-size: 20px;
 
   &:hover, &:focus, &:active {
     border-color: $main-color !important;
