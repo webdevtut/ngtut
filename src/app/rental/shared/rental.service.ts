@@ -29,4 +29,8 @@ public createRental(rental: Rental): Observable<any>{
 public getUserRentals(): Observable<any>{
   return this.http.get('/api/v1/rentals/manage');
 }
+
+public deleteRental(rentalId: string): Observable<any>{
+  return this.http.delete(`/api/v1/rentals/${rentalId}`)
+}
 }
