@@ -42,7 +42,31 @@ router.get('/:id', function(req,res){
   });
 });
 
+router.patch('/:id', UserCtrl.authMiddleware, function(req,res){
+  const rentalData= req.body;
+  const user = res.locals.user;
 
+  Rental
+        .findById(req.params.id)
+        .populate('user')
+        .exec(function(err, foundRental){
+          if(err){
+            return  res.status(422).send({errors : "Kindly Provide Correct Data /  submit Different input"});
+          }
+          if(foundRental.user.id !== user.id){
+            return res.status(422).send({errors:[{title:'InValid User!', detail : 'You are not owner of this Rental!'}]});
+          }
+          console.log(rentalData);
+          foundRental.set(rentalData);
+          foundRental.save(function(err){
+            if(err){
+              return  res.status(422).send({errors : "Kindly Provide Correct Data /  submit Different input"});
+            }
+            return res.status(200).send(foundRental);
+            // return res.status(200).send(rentalData);
+          });
+        });
+});
 
 router.delete('/:id',UserCtrl.authMiddleware, function(req,res){
   const user  = res.locals.user;
