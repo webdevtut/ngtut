@@ -22,8 +22,9 @@
           </div>
 
 
-          <h1 class="rental-title">{{rental.title}}</h1>
-          <bwm-editable-input>
+          <bwm-editable-input
+          [(entity)]="rental"
+          [field]="'title'">
           </bwm-editable-input>
 
 
