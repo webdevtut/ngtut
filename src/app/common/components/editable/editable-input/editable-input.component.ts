@@ -11,6 +11,8 @@ export class EditableInputComponent implements OnInit {
 
   @Input() field: string;
 
+  @Input() className: boolean = false;
+
   isActiveInput: boolean = false;
 
 
