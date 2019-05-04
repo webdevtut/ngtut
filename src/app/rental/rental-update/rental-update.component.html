@@ -25,7 +25,8 @@
           <bwm-editable-input
           [(entity)]="rental"
           [field]="'title'"
-          [className]="'rental-title'">
+          [className]="'rental-title'"
+          (entityUpdated)="updateRental($event)">
           </bwm-editable-input>
 
 

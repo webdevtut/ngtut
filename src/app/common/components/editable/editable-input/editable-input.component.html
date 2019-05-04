@@ -15,6 +15,12 @@
         </button>
 
         <button *ngIf= "isActiveInput"
+          class="btn btn-sm btn-success btn-editable"
+          (click)="updateEntity()">
+          Save
+        </button>
+
+        <button *ngIf= "isActiveInput"
           class="btn btn-sm btn-danger btn-editable"
           (click)="isActiveInput = false">
           Cancel

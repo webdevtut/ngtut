@@ -29,4 +29,10 @@ export class RentalUpdateComponent implements OnInit {
           this.rental = rental;
         });
     }
+
+    updateRental(value){
+      debugger;
+      console.log(value);
+      alert('Update Rental Called');
+    }
 }
