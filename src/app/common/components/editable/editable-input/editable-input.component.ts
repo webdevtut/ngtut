@@ -24,8 +24,8 @@ export class EditableInputComponent implements OnInit {
   }
 
   updateEntity(){
-    debugger;
-    this.entityUpdated.emit('some Value');
+    this.entityUpdated.emit({[this.field]: this.entity[this.field]});
+    this.isActiveInput = false;
   }
 
 }

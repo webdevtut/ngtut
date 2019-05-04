@@ -30,9 +30,14 @@ export class RentalUpdateComponent implements OnInit {
         });
     }
 
-    updateRental(value){
-      debugger;
-      console.log(value);
-      alert('Update Rental Called');
+    updateRental(rentalId: string,rentalData: any){
+      this.rentalService.updateRental(rentalId, rentalData).subscribe(
+        (updatedRental: Rental)=>{
+          debugger;
+          this.rental = updatedRental;
+        },
+        ()=>{
+
+        })
     }
 }

@@ -31,6 +31,10 @@ public getUserRentals(): Observable<any>{
 }
 
 public deleteRental(rentalId: string): Observable<any>{
-  return this.http.delete(`/api/v1/rentals/${rentalId}`)
+  return this.http.delete(`/api/v1/rentals/${rentalId}`);
+}
+
+public updateRental(rentalId:string, rentalData:any): Observable<any>{
+  return this.http.patch(`/api/v1/rentals/${rentalId}`, rentalData);
 }
 }
