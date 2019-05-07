@@ -3,8 +3,10 @@
         class="{{className}}"
         *ngIf= " isActiveInput"
         type="text"
-        [(ngModel)]="entity[field]">
-  <span *ngIf= "!isActiveInput" class="{{className}} inline"> {{entity[field]}}</span>
+        [(ngModel)]="entity[entityField]"
+        [value]="entity[entityField]"
+        >
+  <span *ngIf= "!isActiveInput" class="{{className}} inline"> {{entity[entityField]}}</span>
 
   <div class="inline">
 
@@ -22,7 +24,7 @@
 
         <button *ngIf= "isActiveInput"
           class="btn btn-sm btn-danger btn-editable"
-          (click)="isActiveInput = false">
+          (click)="cancelUpdate()">
           Cancel
         </button>
 

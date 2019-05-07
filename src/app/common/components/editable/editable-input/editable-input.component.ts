@@ -9,13 +9,22 @@ export class EditableInputComponent implements OnInit {
 
   @Input() entity: any;
 
-  @Input() field: string;
+  @Input() set field(entityField: string) {
+    this.entityField = entityField;
+    this.setOriginValue();
+  };
 
   @Input() className: boolean = false;
 
   @Output() entityUpdated = new EventEmitter();
 
   isActiveInput: boolean = false;
+
+  public entityField : string;
+
+  public originEntityValue: any;
+
+
 
 
   constructor() { }
@@ -24,8 +33,21 @@ export class EditableInputComponent implements OnInit {
   }
 
   updateEntity(){
-    this.entityUpdated.emit({[this.field]: this.entity[this.field]});
+    const entityValue = this.entity[this.entityField];
+    if (entityValue !== this.originEntityValue){
+      this.entityUpdated.emit({[this.entityField]: this.entity[this.entityField]});
+      this.setOriginValue();
+    }
     this.isActiveInput = false;
+  }
+
+  cancelUpdate(){
+    this.isActiveInput = false;
+    this.entity[this.entityField] = this.originEntityValue;
+  }
+
+  setOriginValue(){
+    this.originEntityValue = this.entity[this.entityField];
   }
 
 }
