@@ -3,6 +3,8 @@
         class="{{className}}"
         *ngIf= " isActiveInput"
         type="type"
+        (keydown.escape)="cancelUpdate()"
+        (keyup.enter)="updateEntity()"
         [(ngModel)]="entity[entityField]"
         [value]="entity[entityField]"
         >
