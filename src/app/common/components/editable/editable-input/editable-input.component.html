@@ -1,8 +1,8 @@
-<div class="editable-component" >
+<div [ngStyle]="style" class="editable-component" >
   <input
         class="{{className}}"
         *ngIf= " isActiveInput"
-        type="text"
+        type="type"
         [(ngModel)]="entity[entityField]"
         [value]="entity[entityField]"
         >
