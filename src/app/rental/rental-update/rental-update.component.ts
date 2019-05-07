@@ -12,6 +12,7 @@ import {Rental} from '../shared/rental.model';
 export class RentalUpdateComponent implements OnInit {
 
   rental:Rental;
+  rentalCategories: string[] = Rental.CATEGORIES;
 
     constructor(private route: ActivatedRoute,
       private rentalService: RentalService) { }
