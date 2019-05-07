@@ -58,9 +58,16 @@
             <span><i class="fa fa-user"></i> {{rental.bedrooms + 4}} guests</span>
             <span><i class="fa fa-bed"></i> {{rental.bedrooms + 2}} beds</span>
           </div>
-          <p class="rental-description">
-            {{rental.description}}
-          </p>
+
+          <bwm-editable-textarea
+          [(entity)]="rental"
+          [field]="'description'"
+          [className]="'rental-description'"
+          [rows]="'6'"
+          [cols]="'50'"
+          (entityUpdated)="updateRental(rental._id, $event)">
+        </bwm-editable-textarea>
+
           <hr>
           <div class="rental-assets">
             <h3 class="title">Assets</h3>
