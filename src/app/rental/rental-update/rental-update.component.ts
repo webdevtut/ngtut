@@ -41,7 +41,6 @@ export class RentalUpdateComponent implements OnInit {
     }
 
     transformLocation(location: string): string{
-      debugger;
       return this.upperPipe.transform(location);
     }
 

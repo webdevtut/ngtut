@@ -34,7 +34,6 @@ export class EditableComponent implements OnChanges {
   }
 
   updateEntity(){
-    debugger;
     const entityValue = this.entity[this.entityField];
     if (entityValue !== this.originEntityValue){
       this.entityUpdated.emit({[this.entityField]: this.entity[this.entityField]});
