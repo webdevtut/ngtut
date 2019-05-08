@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
 
-export class EditableComponent implements OnInit {
+export class EditableComponent implements OnChanges {
 
   @Input() entity: any;
 
@@ -27,10 +27,14 @@ export class EditableComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.setOriginValue();
+    this.isActiveInput = false;
+
   }
 
   updateEntity(){
+    debugger;
     const entityValue = this.entity[this.entityField];
     if (entityValue !== this.originEntityValue){
       this.entityUpdated.emit({[this.entityField]: this.entity[this.entityField]});
