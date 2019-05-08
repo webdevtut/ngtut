@@ -18,10 +18,10 @@ export class RentalGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const rentalId: string = route.params.rentalId;
-    debugger;
     return this.rentalService.verifyRentalUser(rentalId).map(() =>{
       return true;
     }).catch(() =>{
+      this.router.navigate(['/rentals']);
       return Observable.of(false);
     })
   }
