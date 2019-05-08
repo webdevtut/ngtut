@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { Routes,RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'
-import { NgPipesModule } from 'ngx-pipes';
+import { NgPipesModule,UcWordsPipe } from 'ngx-pipes';
 import { MapModule } from '../common/map/map.module';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { FormsModule } from '@angular/forms';
@@ -66,7 +66,8 @@ const routes: Routes = [
    providers:[
      RentalService,
      HelperService,
-     BookingService
+     BookingService,
+     UcWordsPipe
    ]
  })
 export class RentalModule{}

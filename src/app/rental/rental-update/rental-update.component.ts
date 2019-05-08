@@ -4,6 +4,7 @@ import { RentalService } from '../shared/rental.service';
 import {Rental} from '../shared/rental.model';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import{ HttpErrorResponse } from '@angular/common/http';
+import {UcWordsPipe} from 'ngx-pipes';
 
 
 
@@ -25,8 +26,10 @@ export class RentalUpdateComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private rentalService: RentalService,
                 private toastr: ToastsManager,
-                private vcr: ViewContainerRef
+                private vcr: ViewContainerRef,
+                private upperPipe: UcWordsPipe
                     ) {
+                      this.transformLocation = this.transformLocation.bind(this);
                       this.toastr.setRootViewContainerRef(vcr);
                     }
 
@@ -35,6 +38,11 @@ export class RentalUpdateComponent implements OnInit {
         (params) => {
           this.getRental(params['rentalId'])
         })
+    }
+
+    transformLocation(location: string): string{
+      debugger;
+      return this.upperPipe.transform(location);
     }
 
     getRental(rentalId: string){
@@ -57,5 +65,9 @@ export class RentalUpdateComponent implements OnInit {
           this.getRental(rentalId);
 
         })
+    }
+
+    countBedroomAssets(assetsNum: number){
+      return parseInt(<any>this.rental.bedrooms || 0, 10) + assetsNum;
     }
 }
