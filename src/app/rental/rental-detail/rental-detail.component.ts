@@ -26,7 +26,6 @@ rental:Rental;
     this.rentalService.getRentalById(rentalId).subscribe(
       (rental: Rental)=> {
         this.rental = rental;
-      }
-    )
+      });
   }
 }
