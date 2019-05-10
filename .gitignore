@@ -43,5 +43,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
+/server/services/image-upload.js
 /server/config/dev.js
 /server/.vscode
