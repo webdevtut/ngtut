@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
 import { ImageUploadService } from './image-upload.service';
 
 class FileSnippet{
@@ -17,19 +17,26 @@ class FileSnippet{
 })
 export class ImageUploadComponent  {
 
+  @Output() imageUploaded = new EventEmitter();
+  @Output() imageError = new EventEmitter();
+
+
   selectedFile: FileSnippet;
 
 constructor(private imageService: ImageUploadService) { }
 
-  private onSuccess(){
+  private onSuccess(imageUrl: string){
     this.selectedFile.pending = false;
     this.selectedFile.status = "OK";
+    this.imageUploaded.emit(imageUrl);
+    debugger;
 
   }
 
   private onFailure(){
     this.selectedFile.pending = false;
     this.selectedFile.status = "FAIL";
+    this.imageError.emit('');
   }
 
   processFile(imageInput: any){
@@ -42,8 +49,7 @@ constructor(private imageService: ImageUploadService) { }
 
       this.imageService.uploadImage(this.selectedFile.file).subscribe(
         (imageUrl:string) =>{
-          debugger;
-          this.onSuccess();
+          this.onSuccess(imageUrl);
         },
         () =>{
           this.onFailure();

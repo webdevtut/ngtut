@@ -47,7 +47,10 @@
           </div>
 
           <div class="form-group">
-            <bwm-image-upload></bwm-image-upload>
+            <bwm-image-upload
+                              (imageUploaded)="handleImageUpload($event)"
+                              (imageError)="handleImageError($event)"
+                              ></bwm-image-upload>
           </div>
 
           <div class="form-group">
@@ -98,7 +101,7 @@
                    required>
           </div>
           <button (click)="createRental()"
-                  [disabled]="!rentalForm.form.valid"
+                  [disabled]="!rentalForm.form.valid || !newRental.image"
                   type="button"
                   class="btn btn-bwm">Submit</button>
         </form>
