@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ImageUploadService } from './image-upload.service';
 
 class FileSnippet{
+
+  pending : boolean = false;
+  status: string = 'INIT';
+
   constructor(public src :string, public file: File ){
   }
 }
@@ -18,11 +22,14 @@ export class ImageUploadComponent  {
 constructor(private imageService: ImageUploadService) { }
 
   private onSuccess(){
+    this.selectedFile.pending = false;
+    this.selectedFile.status = "OK";
 
   }
 
   private onFailure(){
-
+    this.selectedFile.pending = false;
+    this.selectedFile.status = "FAIL";
   }
 
   processFile(imageInput: any){
@@ -31,7 +38,7 @@ constructor(private imageService: ImageUploadService) { }
     reader.addEventListener('load', (event:any) =>{
       this.selectedFile = new FileSnippet(event.target.result, file);
 
-      debugger;
+      this.selectedFile.pending = true;
 
       this.imageService.uploadImage(this.selectedFile.file).subscribe(
         (imageUrl:string) =>{

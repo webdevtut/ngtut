@@ -12,4 +12,15 @@
   [ngStyle]="{'background-image': 'url(' + selectedFile.src + ')'}">
   </div>
 
+  <div *ngIf="selectedFile.pending" class="image-loading-overlay">
+    <div class="img-spinning-circle"></div>
+  </div>
+
+  <div *ngIf="selectedFile.status === 'OK'"  class="alert alert-success">
+    Image Uploaded Successfully!
+  </div>
+  <div *ngIf="selectedFile.status === 'FAIL'" class="alert alert-danger">
+    Image Upload Failed!!
+  </div>
+
 </div>
