@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ImageUploadService } from './image-upload.service';
 
 class FileSnippet{
   constructor(public src :string, public file: File ){
@@ -10,21 +11,36 @@ class FileSnippet{
   templateUrl: './image-upload.component.html',
   styleUrls: ['./image-upload.component.scss']
 })
-export class ImageUploadComponent implements OnInit {
+export class ImageUploadComponent  {
 
   selectedFile: FileSnippet;
 
-  constructor() { }
+constructor(private imageService: ImageUploadService) { }
 
-  ngOnInit() {
+  private onSuccess(){
+
+  }
+
+  private onFailure(){
+
   }
 
   processFile(imageInput: any){
     const file: File = imageInput.files[0];
     const reader = new FileReader();
-    debugger;
     reader.addEventListener('load', (event:any) =>{
       this.selectedFile = new FileSnippet(event.target.result, file);
+
+      debugger;
+
+      this.imageService.uploadImage(this.selectedFile.file).subscribe(
+        (imageUrl:string) =>{
+          debugger;
+          this.onSuccess();
+        },
+        () =>{
+          this.onFailure();
+        })
     });
     reader.readAsDataURL(file);
   }
