@@ -1,10 +1,17 @@
 
-<label class = "image-upload-container btn btn-bwm">
+<label *ngIf = "!imageChangedEvent" class = "image-upload-container btn btn-bwm">
   <span>Select Image</span>
 <input type="file"
        accept="image/*"
        (change)='processFile($event)'>
 </label>
+
+<button *ngIf = "imageChangedEvent"
+        (click)='uploadImage()'
+        class="btn btn-success"
+        type="button"
+        name="button">Upload Image</button>
+
 
 <image-cropper
     [imageChangedEvent]="imageChangedEvent"

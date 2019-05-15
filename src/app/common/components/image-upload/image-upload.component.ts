@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
 import { ImageUploadService } from './image-upload.service';
 
 class FileSnippet{
-
+  static readonly IMAGE_SIZE = {width: 750, height: 422};
   pending : boolean = false;
   status: string = 'INIT';
 
@@ -43,11 +43,32 @@ constructor(private imageService: ImageUploadService) { }
     if(this.selectedFile){
       return this.selectedFile.file = file;
     }
-    return new FileSnippet('', file);
+    return this.selectedFile = new FileSnippet('', file);
   }
 
   processFile(event: any){
-    this.imageChangedEvent = event;
+    this.selectedFile = undefined;
+    const URL = window.URL;
+    let file, img;
+
+    if((file = event.target.files[0]) && (file.type === 'image/png' || file.type === 'image/jpeg')){
+      img = new Image();
+
+      const self = this;
+
+      img.onload = function () {
+
+        if(this.width > FileSnippet.IMAGE_SIZE.width && this.height > FileSnippet.IMAGE_SIZE.height){
+          self.imageChangedEvent = event;
+        } else {
+          // Handle Error Later
+        }
+      }
+
+      img.src = URL.createObjectURL(file);
+    } else{
+      // Handle Error Later
+    }
   }
 
   uploadImage(){
