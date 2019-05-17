@@ -24,6 +24,8 @@ export class ImageUploadComponent  {
 
   @Output() imageUploaded = new EventEmitter();
   @Output() imageError = new EventEmitter();
+  @Output() imageLoadedToContainer = new EventEmitter();
+  @Output() croppingCancelled = new EventEmitter();
 
 
   selectedFile: FileSnippet;
@@ -55,6 +57,15 @@ constructor(private toastr:ToastsManager,
       return this.selectedFile.file = file;
     }
     return this.selectedFile = new FileSnippet('', file);
+  }
+
+  imageLoaded(){
+    this.imageLoadedToContainer.emit();
+  }
+
+  cancelCropping(){
+    this.imageChangedEvent = null;
+    this.croppingCancelled.emit();
   }
 
   processFile(event: any){

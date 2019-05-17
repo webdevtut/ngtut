@@ -13,6 +13,15 @@
         name="button">Upload Image</button>
 
 
+<button *ngIf = "imageChangedEvent"
+        (click)='cancelCropping()'
+        class="btn btn-danger"
+        type="button"
+        name="button">Cancel</button>
+
+
+
+
 <image-cropper *ngIf = "imageChangedEvent"
     [imageChangedEvent]="imageChangedEvent"
     [maintainAspectRatio]="true"
@@ -20,6 +29,7 @@
     [resizeToWidth]="950"
     format="jpeg"
     (imageCroppedFile)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
 ></image-cropper>
 
 <div *ngIf= "selectedFile && selectedFile.src" class="img-preview-container">
