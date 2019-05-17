@@ -18,8 +18,8 @@ rental:Rental;
   ngOnInit() {
     this.route.params.subscribe(
       (params) => {
-        this.getRental(params['rentalId'])
-      })
+        this.getRental(params['rentalId']);
+      });
   }
 
   getRental(rentalId: string){

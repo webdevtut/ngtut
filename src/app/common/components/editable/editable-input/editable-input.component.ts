@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import {EditableComponent} from '../editable-component'
+import {EditableComponent} from '../editable-component';
 
 @Component({
   selector: 'bwm-editable-input',
