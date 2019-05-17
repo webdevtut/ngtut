@@ -54,21 +54,21 @@ export class RentalDetailBookingComponent implements OnInit {
 
     ngOnInit() {
       this.newBooking = new Booking();
-      this.getBookedOutDates();
+      // this.getBookedOutDates();
     }
     private checkForInvalidDates(date) {
       return this.bookedOutDates.includes(this.helper.formatBookingDate(date)) || date.diff(moment(), 'days') < 0;
     }
 
-    private getBookedOutDates() {
-      const bookings: Booking[] = this.rental.bookings ;
-      if (bookings && bookings.length > 0) {
-        bookings.forEach((booking: Booking) => {
-            const dateRange = this.helper.getBookingRangeOfDates(booking.startAt, booking.endAt);
-            this.bookedOutDates.push(...dateRange);
-        });
-      }
-    }
+    // private getBookedOutDates() {
+    //   const bookings: Booking[] = this.rental.bookings ;
+    //   if (bookings && bookings.length > 0) {
+    //     bookings.forEach((booking: Booking) => {
+    //         const dateRange = this.helper.getBookingRangeOfDates(booking.startAt, booking.endAt);
+    //         this.bookedOutDates.push(...dateRange);
+    //     });
+    //   }
+    // }
 
     private addNewBookedOutDates(bookingData: any) {
       const dateRange = this.helper.getBookingRangeOfDates(bookingData.startAt, bookingData.endAt);

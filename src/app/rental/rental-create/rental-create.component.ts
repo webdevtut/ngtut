@@ -29,7 +29,6 @@ export class RentalCreateComponent implements OnInit {
   }
 
   handleImageUpload(imageUrl : string){
-    debugger;
     this.newRental.image = imageUrl;
   }
 

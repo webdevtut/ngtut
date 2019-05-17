@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
   login(){
         this.auth.login(this.loginForm.value).subscribe(
           (token) => {
-            debugger;
             this.router.navigate(['/rentals']);  // Just adding path to our URL for register
           },
           (errorResponse) => {

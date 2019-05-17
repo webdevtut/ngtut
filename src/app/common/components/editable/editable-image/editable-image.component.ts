@@ -10,13 +10,12 @@ import {EditableComponent} from '../editable-component';
 export class EditableImageComponent extends EditableComponent{
 
 handleImageUpload(imageUrl: string){
-  debugger;
   this.entity[this.entityField] = imageUrl;
   this.updateEntity();
 }
 
 handleImageError(){
-
+this.cancelUpdate();
 }
 
 handleImageLoad(){

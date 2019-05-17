@@ -1,5 +1,11 @@
+@import 'variables';
+
 input{
   display: none;
+}
+
+.btn-selectImage{
+  background-color: $main-color;
 }
 
 .img-preview-container{
