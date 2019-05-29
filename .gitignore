@@ -45,4 +45,5 @@ Thumbs.db
 
 /server/services/image-upload.js
 /server/config/dev.js
+/server/config/prod.js
 /server/.vscode

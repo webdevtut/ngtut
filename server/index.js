@@ -1,9 +1,10 @@
 const express = require('express');    // This is How we import package inside of node
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const config = require('./config/dev');
-const FakeDb = require('./fake-db');
-
+const config = require('./config');
+const FakeDb = require('./models/rental');
+const Rental = require('path');
+const path = require('path');
 
 const rentalRoutes = require('./routes/rentals'),
       userRoutes = require('./routes/users'),
@@ -11,8 +12,10 @@ const rentalRoutes = require('./routes/rentals'),
       imageUploadRoutes = require('./routes/image-upload');
 
 mongoose.connect(config.DB_URI, { useNewUrlParser: true }).then(() => {
+  if (process.env.NODE_ENV !== 'production') {
   const fakeDb = new FakeDb();
   // fakeDb.seedDb();
+}
 });
 
 
@@ -24,7 +27,18 @@ app.use(bodyParser.json());
 app.use('/api/v1/rentals', rentalRoutes); // Middleware
 app.use('/api/v1/users', userRoutes); // Middleware
 app.use('/api/v1/bookings', bookingRoutes); // BookingRoutes
-app.use('/api/v1/', imageUploadRoutes); 
+app.use('/api/v1/', imageUploadRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+  const appPath = path.join(__dirname, '..', 'dist');
+  app.use(express.static(appPath));
+  app.get('*', function(req,res){
+    res.sendFile(path.resolve(appPath, 'index.html'));
+  });
+}
+
+
+
 
 
 const PORT = process.env.PORT || 3001;
