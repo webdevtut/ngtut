@@ -1,7 +1,7 @@
 const express = require('express');    // This is How we import package inside of node
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const config = require('./config/dev');
+const config = require('./config');
 const FakeDb = require('./models/rental');
 const Rental = require('path');
 const path = require('path');
