@@ -12,8 +12,10 @@ const rentalRoutes = require('./routes/rentals'),
       imageUploadRoutes = require('./routes/image-upload');
 
 mongoose.connect(config.DB_URI, { useNewUrlParser: true }).then(() => {
+  if (process.env.NODE_ENV !== 'production') {
   const fakeDb = new FakeDb();
   // fakeDb.seedDb();
+}
 });
 
 
@@ -27,12 +29,16 @@ app.use('/api/v1/users', userRoutes); // Middleware
 app.use('/api/v1/bookings', bookingRoutes); // BookingRoutes
 app.use('/api/v1/', imageUploadRoutes);
 
-const appPath = path.join(__dirname, '..', 'dist');
+if (process.env.NODE_ENV === 'production') {
+  const appPath = path.join(__dirname, '..', 'dist');
+  app.use(express.static(appPath));
+  app.get('*', function(req,res){
+    res.sendFile(path.resolve(appPath, 'index.html'));
+  });
+}
 
-app.use(express.static(appPath));
-app.get('*', function(req,res){
-  res.sendFile(path.resolve(appPath, 'index.html'));
-});
+
+
 
 
 const PORT = process.env.PORT || 3001;
