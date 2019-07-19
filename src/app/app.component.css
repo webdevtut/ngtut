@@ -1,0 +1,32 @@
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.btn-primary {
+  color: #FFFF;
+  background-color: #F44336;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.middle{
+  position: fixed;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: 5px;
+}
