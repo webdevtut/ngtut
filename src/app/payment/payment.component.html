@@ -1,3 +1,23 @@
-<p>
-  payment works!
-</p>
+<form (ngSubmit)='onSubmit()'>
+  <div class="group">
+    <label>
+    <span>Card Number</span>
+    <div #CardNumber class="field"></div>
+  </label>
+    <label>
+    <span>Expiry Date</span>
+    <div #CardExp class="field"></div>
+  </label>
+    <label>
+    <span>CVV</span>
+    <div #CardCVV class="field"></div>
+  </label>
+  </div>
+  <button type="submit">Submit Button for test </button>
+  <div class="outcome">
+    <div class="error">
+
+    </div>
+
+  </div>
+</form>
