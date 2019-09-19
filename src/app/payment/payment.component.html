@@ -13,10 +13,10 @@
     <div #cardCVV class="field"></div>
   </label>
   </div>
-  <button type="submit">Submit Button for test </button>
   <div class="outcome">
-    <div class="error">
-
+    <div *ngIf= 'error' class="error">
+      {{error}}
     </div>
   </div>
+  <button type="submit">Submit Button for test </button>
 </form>
