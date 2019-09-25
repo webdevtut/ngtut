@@ -1,4 +1,4 @@
-<form (ngSubmit)='onSubmit()'>
+<form >
   <div class="group">
     <label>
     <span>Card Number</span>
@@ -18,5 +18,5 @@
       {{error}}
     </div>
   </div>
-  <button type="submit">Submit Button for test </button>
+  <button (click)="onSubmit()" type='button'>Submit Button for test </button>
 </form>

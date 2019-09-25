@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef, Output, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment'
 
 @Component({
@@ -13,6 +13,8 @@ export class PaymentComponent implements OnInit {
   @ViewChild('cardNumber') cardNumRef : ElementRef;
   @ViewChild('cardExp') cardExpRef : ElementRef;
   @ViewChild('cardCVV') cardCVVRef : ElementRef;
+
+  @Output() paymentComfirmed = new EventEmitter();
 
 cardNumber: any;
 cardExp: any;
@@ -61,8 +63,13 @@ error:  '';
     }
   }
 
-  onSubmit(){
-
+  async onSubmit(){
+    const { token,error } = await this.stripe.createToken(this.cardNumber);
+    if(error){
+      console.error(error);
+    }else{
+      this.paymentComfirmed.next(token);
+    }
   }
 
 }
