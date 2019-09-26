@@ -20,7 +20,9 @@ cardNumber: any;
 cardExp: any;
 cardCVV : any;
 
+isValidatingCard: boolean = false;
 error:  '';
+token: any;
 
   constructor() {
   this.stripe = Stripe(environment.STRIPE_PK);
@@ -55,7 +57,6 @@ error:  '';
   }
 
   onChange({error}){
-    debugger;
     if(error) {
       this.error = error.message;
     }else{
@@ -64,13 +65,22 @@ error:  '';
   }
 
   async onSubmit(){
+    this.isValidatingCard = true;
     const { token,error } = await this.stripe.createToken(this.cardNumber);
+
+    this.isValidatingCard = false;
     if(error){
       console.error(error);
     }else{
+      this.token = token;
       this.paymentComfirmed.next(token);
     }
   }
+
+  isCardValid(): boolean{
+    return this.cardNumber._complete && this.cardExp._complete && this.cardCVV._complete;
+  }
+
 
 }
 
