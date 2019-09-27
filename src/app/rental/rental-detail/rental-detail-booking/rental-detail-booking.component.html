@@ -55,7 +55,7 @@
     </p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn-bwm" (click)="createBooking()">Confirm</button>
+    <button [disabled]="!newBooking.paymentToken" type="button" class="btn-bwm" (click)="createBooking()">Confirm</button>
     <button type="button" class="btn-bwm" (click)="c('Save click')">Close</button>
   </div>
 </ng-template>
