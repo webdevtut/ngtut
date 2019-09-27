@@ -24,6 +24,8 @@ const userSchema = new Schema({
     max:[32,"Too long, maximum 32 charachers allowed"],
     required: 'Password is required'
   },
+  stripeCustomerId:String,
+  revenue: Number,
   rentals:[{
     type:Schema.Types.ObjectId,
     ref:'Rental'
