@@ -5,9 +5,12 @@ const User = require("../models/user");
 const { normalizederrors} = require('../helpers/mongoose')
 const moment = require('moment');
 
+const config = require('../config');
+
+const stripe = require('stripe')(config.STRIPE_SK);
 
 exports.createBooking = function(req,res) {
-  const { startAt, endAt, totalPrice, guests, days, rental } = req.body;
+  const { startAt, endAt, totalPrice, guests, days, rental, paymentToken } = req.body;
   const user = res.locals.user;
 
   const booking = new Booking({startAt, endAt, totalPrice, guests, days});
@@ -25,6 +28,9 @@ exports.createBooking = function(req,res) {
           return res.status(422).send({errors:[{title:'Invalid user!!!', detail : 'Cannot create booking for your Rental!'}]});
           }
           if (isValidBooking(booking, foundRental)) {
+
+            const payment = createPayment(booking, foundRental.user, paymentToken);
+
             booking.user = user;
             booking.rental = foundRental;
             foundRental.bookings.push(booking); // if Booking Dates are not overlapping we will save the bookings back to Database
@@ -74,4 +80,23 @@ function isValidBooking(proposedBooking, rental){
   }
 
   return isValid;
+}
+
+
+async function createPayment(booking, toUser, token){
+  const { user } = booking;
+
+
+  const customer = await stripe.customers.create({
+    source: token.id,
+    email: user.email
+  });
+
+  if (customer) {
+    User.update({_id: user.id}, {$set: {stripeCustomerId: customer.id}}, () => {});
+
+    const payment = new Payment();
+  } else {
+    return {err: 'cannot process payment!'}
+  }
 }
