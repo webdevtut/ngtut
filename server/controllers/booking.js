@@ -1,6 +1,7 @@
 
 const Booking = require("../models/booking");
 const Rental = require("../models/rental");
+const Payment = require("../models/payment");
 const User = require("../models/user");
 const { normalizederrors} = require('../helpers/mongoose')
 const moment = require('moment');
@@ -35,7 +36,7 @@ exports.createBooking = function(req,res) {
             const { payment, err} = createPayment(booking, foundRental.user, paymentToken);
 
             if (payment) {
-              
+
                 booking.user = user;
                 booking.rental = foundRental;
                 booking.payment = payment;

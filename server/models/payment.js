@@ -11,7 +11,7 @@ const paymentSchema = new Schema({
   amount: Number,
   tokenId: String,
   charge: Schema.Types.Mixed,
-  status: { type: string, default: 'pending'}
+  status: { type: String, default: 'pending'}
 });
 
 module.exports = mongoose.model('Payment', paymentSchema);
