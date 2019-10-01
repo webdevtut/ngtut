@@ -17,7 +17,6 @@ exports.getPendingPayments = function(req,res) {
       return res.status(422).send({errors: normalizederrors(err.errors)});
     }
     return res.json(foundPayments);
-
   })
 
 }

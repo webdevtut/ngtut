@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../../booking/shared/booking.service';
+import { PaymentService } from '../../payment/shared/payment.service';
 import { Booking } from '../../booking/shared/booking.model';
 
 @Component({
@@ -10,9 +11,11 @@ import { Booking } from '../../booking/shared/booking.model';
 export class ManageBookingComponent implements OnInit {
 
   bookings: Booking[];
+  payments: any[];
 
 
-  constructor(private bookingService: BookingService) { }
+  constructor(private bookingService: BookingService,
+              private paymentService: PaymentService) { }
 
   ngOnInit() {
     this.bookingService.getUserBokings().subscribe(
@@ -20,6 +23,19 @@ export class ManageBookingComponent implements OnInit {
         this.bookings = bookings;
       },
       ()=>{
+
+      })
+      this.getPendingPayments();
+  }
+
+  getPendingPayments(){
+    debugger
+    this.paymentService.getPendingPayments().subscribe(
+      (payments: any) => {
+        debugger
+        this.payments = payments;
+      },
+      () => {
 
       }
     )
