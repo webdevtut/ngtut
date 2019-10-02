@@ -29,10 +29,10 @@ export class ManageBookingComponent implements OnInit {
   }
 
   getPendingPayments(){
-    debugger
+    
     this.paymentService.getPendingPayments().subscribe(
       (payments: any) => {
-        debugger
+        
         this.payments = payments;
       },
       () => {

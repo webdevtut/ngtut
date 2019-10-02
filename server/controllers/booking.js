@@ -22,7 +22,7 @@ exports.createBooking = function(req,res) {
   Rental.findById(rental._id)
             .populate('bookings')
             .populate('user')
-            .exec(function(err, foundRental){
+            .exec(async function(err, foundRental){
               // console.log(foundRental._id);
               // console.log(user._id);
         if(err){
@@ -33,12 +33,17 @@ exports.createBooking = function(req,res) {
           }
           if (isValidBooking(booking, foundRental)) {
 
-            const { payment, err} = createPayment(booking, foundRental.user, paymentToken);
+            
+
+            booking.user = user;
+            booking.rental = foundRental;
+
+            const { payment, err} = await createPayment(booking, foundRental.user, paymentToken);
+            
+            
 
             if (payment) {
 
-                booking.user = user;
-                booking.rental = foundRental;
                 booking.payment = payment;
                 foundRental.bookings.push(booking); // if Booking Dates are not overlapping we will save the bookings back to Database
 
@@ -98,8 +103,9 @@ function isValidBooking(proposedBooking, rental){
 async function createPayment(booking, toUser, token){
   const { user } = booking;
 
+  
 
-  const customer = await stripe.customers.create({
+  const customer =  await stripe.customers.create({
     source: token.id,
     email: user.email
   });
@@ -113,7 +119,7 @@ async function createPayment(booking, toUser, token){
       fromStripeCustomerId: customer.id,
       booking,
       tokenId: token.id,
-      amount: booking.amount * 100 * CUSTOMER_SHARE
+      amount: booking.totalPrice * 100 * CUSTOMER_SHARE
     });
 
     try {
