@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const paymentSchema = new Schema({
 
-  fomUser: { type: Schema.Types.ObjectId, ref: 'User'},
+  fromUser: { type: Schema.Types.ObjectId, ref: 'User'},
   fromSripeCustomerId:String,
   toUser: { type: Schema.Types.ObjectId, ref: 'User'},
   booking: { type: Schema.Types.ObjectId, ref: 'Booking' },
