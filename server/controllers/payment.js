@@ -1,3 +1,6 @@
+const User = require('../models/user');
+const Booking = require('../models/booking');
+const Rental = require('../models/rental');
 const Payment = require("../models/payment");
 const { normalizederrors} = require('../helpers/mongoose')
 
@@ -27,20 +30,22 @@ exports.confirmPayment = function(req, res) {
   const payment = req.body;
   const user = res.locals.user;
 
+debugger
+
   Payment.findById(payment._id)
     .populate('toUser')
     .populate('booking')
-    .exec(function(err, foundPayment){
+    .exec(async function(err, foundPayment){
       if(err){
         return res.status(422).send({errors: normalizederrors(err.errors)});
       }
       if (foundPayment.status === 'pending' && user.id === foundPayment.toUser.id){
 
         const booking = foundPayment.booking;
-        const charge = stripe.charges.create({
-          amount: booking.totalPrice,
+        const charge = await stripe.charges.create({
+          amount: booking.totalPrice * 100,
           currency: 'inr',
-          customer: payment.fromStripeCustomerId
+          source: "tok_mastercard"
         })
         if (charge) {
           Booking.update({_id : booking.id}, { status: 'active'}, function(){});
