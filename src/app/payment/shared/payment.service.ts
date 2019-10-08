@@ -14,4 +14,7 @@ constructor(private http: HttpClient){}
 public acceptPayment(payment): Observable<any>{
   return this.http.post('/api/v1/payments/accept', payment);
 }
+public declinePayment(payment): Observable<any>{
+  return this.http.post('/api/v1/payments/decline', payment);
+}
 }

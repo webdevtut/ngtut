@@ -42,10 +42,17 @@ export class ManageBookingComponent implements OnInit {
   }
 
   acceptPayment(payment){
-    debugger
     this.paymentService.acceptPayment(payment).subscribe(
       (json) => {
-        debugger
+        payment.status = "paid";
+      },
+      err =>{}
+    )
+  }
+  declinePayment(payment){
+    this.paymentService.declinePayment(payment).subscribe(
+      (json) => {
+        payment.status = "declined";
       },
       err =>{}
     )

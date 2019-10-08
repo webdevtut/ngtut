@@ -82,7 +82,7 @@ exports.declinePayment = function(req,res) {
     }
 
     Payment.update({_id: payment._id}, {status: 'declined'}, function() {});
-    Rental.upadte({_id: booking.rental}, {$pull: {bookings: booking._id}}, () => {});
+    Rental.update({_id: booking.rental}, {$pull: {bookings: booking._id}}, () => {});
 
     return res.json({status: 'deleted'});
   })
