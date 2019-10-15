@@ -9,6 +9,10 @@ import { AuthGuard } from '../auth/shared/auth.guard';
 
 import { UserComponent } from './user.component';
 import { UserService } from './shared/user.service';
+
+import { AuthService } from '../auth/shared/auth.service';
+
+
 import { UserDetailComponent } from './user-detail/user-detail.component';
 
 
@@ -34,7 +38,8 @@ const routes: Routes = [
     UserDetailComponent
   ],
   providers:[
-    UserService
+    UserService,
+    AuthService
   ]
 })
 

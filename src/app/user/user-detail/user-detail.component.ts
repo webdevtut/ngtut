@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../shared/user.service';
+import { AuthService } from '../../auth/shared/auth.service';
 
 @Component({
   selector: 'bwm-user-detail',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDetailComponent implements OnInit {
 
-  constructor() { }
+  user: any;
+
+  constructor( private userService : UserService,
+               private auth : AuthService) { }
 
   ngOnInit() {
+    this.getUser();
+  }
+
+  getUser(){
+    const userId = this.auth.getUserId();
+    this.userService.getUser(userId).subscribe((user) =>{
+      this.user = user;
+    },
+  (err) => {
+
+  })
   }
 
 }

@@ -1,10 +1,10 @@
-<div class="container bootstrap snippet">
+<div *ngIf= "user" class="container bootstrap snippet">
   <div class="row">
     <div class="col-sm-8">
       <h1>User name</h1>
     </div>
     <div class="col-sm-4">
-    <h1>Revenue : 100</h1>
+    <h1>Revenue : {{user.revenue/100}} ₹</h1>
     </div>
   </div>
   <div class="row">
