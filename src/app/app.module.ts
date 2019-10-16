@@ -12,7 +12,8 @@ import { RentalComponent } from './rental/rental.component';
 
 import { RentalModule } from './rental/rental.module';
 import { AuthModule } from './auth/auth.module';
-import{ManageModule} from './manage/manage.module';
+import{ ManageModule } from './manage/manage.module';
+import{ UserModule } from './user/user.module';
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent
+
     ],
   imports: [
     RouterModule.forRoot(routes),
@@ -33,7 +35,8 @@ const routes: Routes = [
     NgbModule.forRoot(),
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    ManageModule
+    ManageModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

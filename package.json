@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "engines": {
-    "node":"10.15.3",
-    "npm":"6.4.1"
+    "node": "10.15.3",
+    "npm": "6.4.1"
   },
   "scripts": {
     "ng": "ng",
@@ -51,8 +51,10 @@
     "ngx-pipes": "^2.4.2",
     "ngx-toastr": "^10.0.4",
     "node-sass": "^4.11.0",
+    "nodemon": "^1.19.1",
     "rxjs": "^6.5.2",
     "save": "^2.3.3",
+    "stripe": "^7.9.1",
     "tslib": "^1.9.0",
     "zone.js": "^0.8.19"
   },

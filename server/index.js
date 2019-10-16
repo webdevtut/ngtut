@@ -9,6 +9,7 @@ const path = require('path');
 const rentalRoutes = require('./routes/rentals'),
       userRoutes = require('./routes/users'),
       bookingRoutes = require('./routes/bookings'),
+      paymentsRoutes = require('./routes/payments'),
       imageUploadRoutes = require('./routes/image-upload');
 
 mongoose.connect(config.DB_URI, { useNewUrlParser: true }).then(() => {
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 app.use('/api/v1/rentals', rentalRoutes); // Middleware
 app.use('/api/v1/users', userRoutes); // Middleware
 app.use('/api/v1/bookings', bookingRoutes); // BookingRoutes
+app.use('/api/v1/payments', paymentsRoutes); // PaymentsRoutes
 app.use('/api/v1/', imageUploadRoutes);
 
 if (process.env.NODE_ENV === 'production') {
