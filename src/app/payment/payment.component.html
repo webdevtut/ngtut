@@ -1,4 +1,9 @@
 <form [ngClass]= "isValidatingCard ? 'loading' : ''">
+
+  <div *ngIf="token" class="image-loading-overlay">
+    <div class="img-spinning-circle"></div>
+  </div>
+
   <div class="group">
     <label>
     <span>Card Number</span>
@@ -18,7 +23,7 @@
       {{error}}
     </div>
     <div *ngIf="token" class="success alert alert-success">
-        Card accepted Successfully!
+        Card accepted Successfully! Procceed to Confirm booking.
     </div>
   </div>
   <button [disabled]="!isCardValid()" (click)="onSubmit()" type='button'>Submit Button for test </button>

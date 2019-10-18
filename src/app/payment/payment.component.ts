@@ -73,6 +73,7 @@ token: any;
       console.error(error);
     }else{
       this.token = token;
+      console.log(token);
       this.paymentComfirmed.next(token);
     }
   }
